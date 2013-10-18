@@ -4,6 +4,10 @@ factoid: read, manipulate and save factoids
 `factoid` is a Ruby library to manipulate _factoids_ and _entitoids_
 inside Ruby applications without touching the their XML representations.
 
+
+What is a factoid?
+------------------
+
 Factoids and Entitoids are representations of pieces of information
 about a certain entity. These representations not only store the
 information itself, but also keep track of provenance (who stated
