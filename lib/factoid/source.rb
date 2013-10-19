@@ -15,29 +15,38 @@ module Factoid
 		end
 
 		attr_reader :uuid
-		attr_reader :uri
 		attr_reader :value
 
 		def default?
 			return @default
 		end
 
+		def ref?
+			return !@uri.nil?
+		end
+
 		def ==(other)
+
 			if other.equal?(self)
 				return true
 			end
 
-			return value.empty? && Addressable::URI.parse(other) == uri
+			if ref?
+				return Addressable::URI.parse(other) == @uri
+			else
+				return other == @value.to_s
+			end
 		end
 
 		def self.from_xml(elem)
 			uuid = elem.attr('xml:id')
 
-			uri = elem.attr('href')
+			uri = elem.attr('xlink:href')
 
 			default = (elem.attr('default') == 'true')
 
-			value = Value.from_xml(elem)
+			#value = Value.from_xml(elem)
+			value = Value::EMPTY
 
 			return Source.new(uuid, uri, default, value)
 		end

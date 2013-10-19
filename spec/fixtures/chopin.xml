@@ -1,14 +1,7 @@
-<f:entity type="composer" xml:id="chopin-23" xmlns:f='http://svario.it/factoid'>
+<f:entity type="composer" xml:id="chopin-23" xmlns:f='http://svario.it/factoid' xmlns:xlink="http://www.w3.org/1999/xlink">
 	<f:sources>
-		<f:source xml:id="wp" href="http://en.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin" default="true"/>
-
-		<f:source xml:id="bcert" href="urn:isbn:9780007351824">
-			<f:value>
-				Adam Azmoyski,
-				Chopin: Prince of the Romantics,
-				HarperCollins, 2010
-			</f:value>
-		</f:source>
+		<f:source xml:id="wp" xlink:href="http://en.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Chopin" default="true"/>
+		<f:source xml:id="bcert" xlink:href="urn:isbn:9780007351824"/>
 	</f:sources>
 
 	<f:factoid type="name">
@@ -32,8 +25,9 @@
 		<f:value>프레데리크 쇼팽</f:value>
 	</f:name>
 
-	<f:factoid type="birth-date" source="#bcert">
+	<f:factoid type="birth-date">
 		<f:value>1810-08-22</f:value>
+		<f:source xlink:href="#bcert"/>
 	</f:factoid>
 
 	<f:birth-date>

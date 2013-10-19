@@ -4,6 +4,7 @@
 require 'addressable/uri'
 require 'nokogiri'
 
+require 'factoid/source'
 require 'factoid/value'
 
 module Factoid
@@ -44,17 +45,17 @@ module Factoid
 		type = elem.name unless elem.name == 'factoid'
 		type ||= elem.attr('type')
 
-		raw_sources = elem.attr('source') || ''
-		sources = raw_sources.split(' ').map do |uri|
-			Source.new(nil, uri, false, Value::EMPTY)
-		end
-
 		context = {}
 		elem.xpath('./*[name(.) != "value"]').each do |e|
 			context[e.name] = e.text
 		end
 
 		value = Value.from_xml(elem)
+
+		raw_sources = elem.xpath('f:source', NS)
+		sources = raw_sources.map do |e|
+			Source.from_xml(e)
+		end
 
 		return Factoid.new(type, context, value, sources, context_sources)
 	end
