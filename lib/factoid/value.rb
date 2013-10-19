@@ -1,6 +1,8 @@
 # This is free software released into the public domain (CC0 license).
 
 
+require 'factoid/xml'
+
 module Factoid
 	class Value
 		def initialize(value, raw_value)

@@ -7,9 +7,6 @@ require 'nokogiri'
 require 'factoid/value'
 
 module Factoid
-	NS_URI = 'http://svario.it/factoid'
-	NS = { 'f' => NS_URI }
-
 	class Factoid
 		def initialize(type, context, value, sources, context_sources)
 			@type = type

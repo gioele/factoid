@@ -5,6 +5,7 @@ require 'nokogiri'
 
 require 'factoid/factoid'
 require 'factoid/source'
+require 'factoid/xml'
 
 module Factoid
 	class Entitoid
