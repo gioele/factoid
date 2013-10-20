@@ -1,7 +1,6 @@
 # This is free software released into the public domain (CC0 license).
 
 
-require 'factoid/entitoid_ref'
 require 'factoid/xml'
 
 module Factoid
@@ -33,6 +32,9 @@ module Factoid
 
 				v = Time.parse(raw)
 			elsif !@raw_value.xpath('./f:*', NS).empty?
+				require 'factoid/entitoid_ref'
+
+				# TODO: use EntitoidRef.from_xml
 				e = @raw_value.at('./f:*', NS)
 				href = e.attr('xlink:href')
 
@@ -44,16 +46,6 @@ module Factoid
 			# FIXME: follow
 
 			return v
-		end
-
-		def self.from_xml(container_elem)
-			elem = container_elem.at('./f:value', NS)
-
-			type = elem.attr('type')
-			# TODO: special case for entitoids
-			# TODO: use type = :entitoid_ref instead of nil
-
-			return Value.new(type, elem)
 		end
 	end
 end

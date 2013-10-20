@@ -3,8 +3,6 @@
 
 require 'addressable/uri'
 
-require 'factoid/value'
-
 module Factoid
 	class Source
 		def initialize(uuid, uri, default, value)
@@ -36,19 +34,6 @@ module Factoid
 			else
 				return other == @value.to_s
 			end
-		end
-
-		def self.from_xml(elem)
-			uuid = elem.attr('xml:id')
-
-			uri = elem.attr('xlink:href')
-
-			default = (elem.attr('default') == 'true')
-
-			#value = Value.from_xml(elem)
-			value = Value::EMPTY
-
-			return Source.new(uuid, uri, default, value)
 		end
 	end
 end

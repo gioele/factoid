@@ -4,6 +4,7 @@
 require 'spec_helpers'
 
 require 'factoid/entitoid'
+require 'factoid/xml'
 
 describe Factoid::Entitoid do
 	before(:all) do
