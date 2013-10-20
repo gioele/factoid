@@ -35,7 +35,7 @@ module Factoid
 		end
 
 		def value(interpret = true, follow = false)
-			return @value_obj.value
+			return @value_obj.value(interpret, follow)
 		end
 	end
 end

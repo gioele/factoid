@@ -10,7 +10,7 @@ module Factoid
 
 		EMPTY = Value.new(nil, nil).freeze
 
-		def value(interpret = true, follow = false)
+		def value(interpret, follow)
 			raw = nil
 
 			if @raw_value.elements.empty?
