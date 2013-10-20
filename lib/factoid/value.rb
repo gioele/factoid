@@ -23,25 +23,54 @@ module Factoid
 				return raw
 			end
 
-			# TODO: move to separate decoders
-
-			if @type == 'xsd:date'
-				require 'time'
-
-				v = Time.parse(raw)
-			elsif !@raw_value.xpath('./f:*', NS).empty?
-				require 'factoid/xml'
-
-				elem = @raw_value.at('./f:*', NS)
-
-				v = EntitoidRef.from_xml(elem)
-			else
-				v = raw
-			end
+			interpreter = Interpreters.find { |i| begin i.accept?(@type, raw); rescue; end; }
+			v = interpreter.interpret(@type, raw)
 
 			# FIXME: follow
 
 			return v
 		end
+
+		class XSDDateInterpreter
+			def self.accept?(type, value)
+				return type == 'xsd:date'
+			end
+
+			def self.interpret(type, value)
+				require 'time'
+				return Time.parse(value)
+			end
+		end
+
+		class EntitoidInterpreter
+			def self.accept?(type, value)
+				return !value.xpath('./f:*', NS).empty?
+			end
+
+			def self.interpret(type, value)
+				require 'factoid/xml'
+
+				# FIXME: allow also complete entitoids
+
+				elem = value.at('./f:*', NS)
+				return EntitoidRef.from_xml(elem)
+			end
+		end
+
+		class IndentityInterpreter
+			def self.accept?(type, value)
+				return true
+			end
+
+			def self.interpret(type, value)
+				return value
+			end
+		end
+
+		Interpreters = [
+			XSDDateInterpreter,
+			EntitoidInterpreter,
+			IndentityInterpreter,
+		]
 	end
 end
