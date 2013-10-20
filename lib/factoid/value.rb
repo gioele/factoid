@@ -1,8 +1,6 @@
 # This is free software released into the public domain (CC0 license).
 
 
-require 'factoid/xml'
-
 module Factoid
 	class Value
 		def initialize(type, raw_value)
@@ -32,13 +30,11 @@ module Factoid
 
 				v = Time.parse(raw)
 			elsif !@raw_value.xpath('./f:*', NS).empty?
-				require 'factoid/entitoid_ref'
+				require 'factoid/xml'
 
-				# TODO: use EntitoidRef.from_xml
-				e = @raw_value.at('./f:*', NS)
-				href = e.attr('xlink:href')
+				elem = @raw_value.at('./f:*', NS)
 
-				v = EntitoidRef.new(href)
+				v = EntitoidRef.from_xml(elem)
 			else
 				v = raw
 			end

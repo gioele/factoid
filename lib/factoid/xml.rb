@@ -40,6 +40,12 @@ module Factoid
 		return e
 	end
 
+	def EntitoidRef.from_xml(elem)
+		href = elem.attr('xlink:href')
+
+		return EntitoidRef.new(href)
+	end
+
 	def Factoid.from_xml(elem, context_sources)
 		type = elem.name unless elem.name == 'factoid'
 		type ||= elem.attr('type')
