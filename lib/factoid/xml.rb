@@ -7,5 +7,6 @@ module Factoid
 	NS = {
 		'f' => FACTOID_NS_URI,
 		'xlink' => 'http://www.w3.org/1999/xlink',
+		'xsd' => 'http://www.w3.org/2001/XMLSchema-datatypes',
 	}
 end

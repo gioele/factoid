@@ -9,18 +9,18 @@ require 'factoid/value'
 
 module Factoid
 	class Factoid
-		def initialize(type, context, value, sources, context_sources)
+		def initialize(type, context, value_obj, sources, context_sources)
 			@type = type
 			@context = context
-			@value = value
+			@value_obj = value_obj
 
 			@sources = sources
 			@context_sources = context_sources
 		end
 
 		attr_reader :type
+		attr_reader :value_obj
 		attr_reader :context
-		attr_reader :value
 
 		def sources
 			if !@sources.empty?
@@ -38,6 +38,10 @@ module Factoid
 			end
 
 			return context.to_a.all? { |k, v| @context[k.to_s] == v }
+		end
+
+		def value(interpret = true, follow = false)
+			return @value_obj.value
 		end
 	end
 

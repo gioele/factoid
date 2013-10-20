@@ -17,7 +17,7 @@ describe Factoid::Entitoid do
 
 	describe "#factoids" do
 		it "returns all the factoids" do
-			expect(@e.factoids(:all)).to have(7).items
+			expect(@e.factoids(:all)).to have(8).items
 		end
 
 		it "returns all the factoids of type 'name'" do
@@ -30,10 +30,6 @@ describe Factoid::Entitoid do
 	end
 
 	describe "#value" do
-		it "returns a single string value" do
-			expect(@e.value('death-date')).to eq "1849-10-17"
-		end
-
 		it "raises an exception if the request is ambiguous" do
 			expect { @e.value('birth-date') }.to raise_error
 		end

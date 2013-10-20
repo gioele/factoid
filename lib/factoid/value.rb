@@ -1,54 +1,59 @@
 # This is free software released into the public domain (CC0 license).
 
 
+require 'factoid/entitoid_ref'
 require 'factoid/xml'
 
 module Factoid
 	class Value
-		def initialize(value, raw_value)
-			@value = value
+		def initialize(type, raw_value)
+			@type = type
 			@raw_value = raw_value
 		end
 
 		EMPTY = Value.new(nil, nil).freeze
 
-		def empty?
-			return @value.nil? || @value.empty?
-		end
+		def value(interpret = true, follow = false)
+			raw = nil
 
-		def to_str
-			return @value
-		end
-
-		def ==(other)
-			if other == @value
-				return true
+			if @raw_value.elements.empty?
+				raw = @raw_value.text
+			else
+				raw = @raw_value
 			end
 
-			if other == @raw_value
-				return true
+			if !interpret
+				return raw
 			end
 
-			return @value.to_str == other
+			# TODO: move to separate decoders
+
+			if @type == 'xsd:date'
+				require 'time'
+
+				v = Time.parse(raw)
+			elsif !@raw_value.xpath('./f:*', NS).empty?
+				e = @raw_value.at('./f:*', NS)
+				href = e.attr('xlink:href')
+
+				v = EntitoidRef.new(href)
+			else
+				v = raw
+			end
+
+			# FIXME: follow
+
+			return v
 		end
 
 		def self.from_xml(container_elem)
 			elem = container_elem.at('./f:value', NS)
 
-			if elem.nil?
-				return Value::EMPTY
-			end
+			type = elem.attr('type')
+			# TODO: special case for entitoids
+			# TODO: use type = :entitoid_ref instead of nil
 
-			text = elem.text
-			text ||= ''
-
-			# TODO: read type from attribute @type
-
-			text.gsub!(/\n|\t/, ' ')
-			text.strip!
-			text.squeeze!
-
-			return Value.new(text, elem)
+			return Value.new(type, elem)
 		end
 	end
 end

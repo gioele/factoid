@@ -1,0 +1,19 @@
+<f:entity type="place" xml:id="zelazowa-wola" xmlns:f='http://svario.it/factoid'
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema-datatypes">
+	<f:sources>
+		<f:source xml:id="wp" xlink:href="http://en.wikipedia.org/wiki/Żelazowa_Wola" default="true"/>
+	</f:sources>
+
+	<f:name>
+		<language>pol</language>
+		<f:value>Żelazowa Wola</f:value>
+	</f:name>
+
+	<f:gmina>
+		<f:value>
+			<f:entity xlink:href="sochaczew"/>
+		</f:value>
+	</f:gmina>
+</f:entity>
+<!-- This is free software released into the public domain (CC0 license). -->
