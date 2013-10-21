@@ -53,8 +53,8 @@ Examples
     puts
     c.factoids('name').each do |fact|
     	puts " #{fact.value} in #{fact.context['language']}"
-	puts "   (from #{fact.sources})"
-	puts
+        puts "   (from #{fact.sources})"
+        puts
     end
 
     # Known names:
