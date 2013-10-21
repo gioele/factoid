@@ -1,4 +1,4 @@
-# This is free software released into the public domain (CC0 license).
+﻿# This is free software released into the public domain (CC0 license).
 
 
 require 'spec_helpers'
