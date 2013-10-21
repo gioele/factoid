@@ -25,7 +25,7 @@ module Factoid
 		e = self.new(uuid)
 
 		context_sources = []
-		x.xpath('/*/f:sources/f:source').each do |s|
+		x.xpath('/*/f:sources/f:source', NS).each do |s|
 			context_sources << Source.from_xml(s)
 		end
 
