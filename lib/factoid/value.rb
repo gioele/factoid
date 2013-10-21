@@ -26,9 +26,18 @@ module Factoid
 			interpreter = Interpreters.find { |i| begin i.accept?(@type, raw); rescue; end; }
 			v = interpreter.interpret(@type, raw)
 
-			# FIXME: follow
+			if !follow
+				return v
+			end
 
-			return v
+			# FIXME: use Dereferenciators (like Interpreters)
+			if v.is_a? EntitoidRef
+				r = v.deref
+			else
+				r = v
+			end
+
+			return r
 		end
 
 		class XSDDateInterpreter

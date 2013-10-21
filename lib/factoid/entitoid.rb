@@ -36,5 +36,20 @@ module Factoid
 
 			return f.first.value
 		end
+
+		def eql?(other)
+			if other.equal?(self)
+				return true
+			end
+
+			if other.class != self.class
+				return false
+			end
+
+			f = factoids(:all)
+			other_f = other.factoids(:all)
+
+			return f.eql?(other_f)
+		end
 	end
 end

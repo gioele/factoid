@@ -42,8 +42,9 @@ module Factoid
 
 	def EntitoidRef.from_xml(elem)
 		href = elem.attr('xlink:href')
+		base = elem.document.url
 
-		return EntitoidRef.new(href)
+		return EntitoidRef.new(href, base)
 	end
 
 	def Factoid.from_xml(elem, context_sources)

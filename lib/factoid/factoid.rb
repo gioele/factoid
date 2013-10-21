@@ -37,5 +37,21 @@ module Factoid
 		def value(interpret = true, follow = false)
 			return @value_obj.value(interpret, follow)
 		end
+
+		def eql?(other)
+			if other.equal?(self)
+				return true
+			end
+
+			if other.class != self.class
+				return false
+			end
+
+			same = other.type == self.type &&
+			       other.value.eql?(self.value) &&
+			       other.sources == self.sources
+
+			return same
+		end
 	end
 end
